@@ -3,32 +3,22 @@
 	section .text
 
 ft_strcmp:
-	mov rcx, 0
-	mov rdx, 0
 	jmp compare
 increment:
-	cmp BYTE [rdi + rcx], 0
+	cmp BYTE [rdi], 0
 	je  return
-	cmp BYTE [rsi + rcx], 0
+	cmp BYTE [rsi], 0
 	je return
-	inc rcx
+	inc rdi
+	inc rsi
 	jmp compare
-less:
-	mov rax, -1
-	ret
-greater:
-	mov rax, 1
-	ret
 compare:
-	mov dl, [rdi + rcx]
-	cmp BYTE dl, [rsi + rcx]
+	mov rcx, 0
+	mov rax, 0
+	mov al, [rdi]
+	mov cl, [rsi]
+	cmp al, cl
 	je  increment
 return:
-	mov dl, [rdi + rcx]
-	cmp BYTE dl, [rsi + rcx]
-	jl  less
-	mov dl, [rdi + rcx]
-	cmp BYTE dl, [rsi + rcx]
-	jg  greater
-	mov rax, 0
+	sub rax, rcx
 	ret
